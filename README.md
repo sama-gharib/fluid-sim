@@ -13,10 +13,12 @@ Please have the following installed :
 ## Installation
 
 ```
-$ git clone [git url here]
-$ cd fluid-sim-master
+$ git clone https://github.com/sama-gharib/fluid-sim.git
+$ cd fluid-sim
 $ make
 ```
+
+The Makefile will download and build [fortran-raylib](https://github.com/interkosmos/fortran-raylib) by itself but you will still need to install raylib by yourself.
 
 ## Troubleshooting
 
