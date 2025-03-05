@@ -1,9 +1,10 @@
 
 
 program main
+    use omp_lib
     use raylib
     use simulation
-    
+
     implicit none
 
     integer :: i
@@ -25,18 +26,25 @@ program main
     end do
 
     call init_window(window_width, window_height, "Fluid Sim - GHARIB ALI BARURA Sama" // char(0))
-    call set_target_fps(60)
+    call set_target_fps(120)
 
     do while (.not. window_should_close())
         call begin_drawing()
             call clear_background(black)
             
             ! Update code
+            !$OMP PARALLEL
+            !$OMP DO
             do i = 1, size(world)
                 call world(i)%recalculate_velocity(world, world_size)
                 call world(i)%update()
+            end do
+            !$OMP END DO
+            !$OMP END PARALLEL
+
+            do i = 1, size(world)
                 call world(i)%draw()
-            end do    
+            end do
 
             ! Infos
             call draw_text("By: sama.gharib-ali-barura@proton.me" // char(0), 350, 10, 24, darkgray)
